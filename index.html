@@ -340,35 +340,35 @@
   <a href="#top" class="subpage-back">← Anasayfa</a>
   <div>
     <h1>Sanat</h1>
-    <p>Çok yakında.</p>
+    <p id="cat-art-text">Çok yakında.</p>
   </div>
 </section>
 <section id="cat-literature" class="subpage c1" lang="tr">
   <a href="#top" class="subpage-back">← Anasayfa</a>
   <div>
     <h1>Edebiyat</h1>
-    <p>Çok yakında.</p>
+    <p id="cat-literature-text">Çok yakında.</p>
   </div>
 </section>
 <section id="cat-cinema" class="subpage c3" lang="tr">
   <a href="#top" class="subpage-back">← Anasayfa</a>
   <div>
     <h1>Film ve Fotoğraf</h1>
-    <p>Çok yakında.</p>
+    <p id="cat-cinema-text">Çok yakında.</p>
   </div>
 </section>
 <section id="cat-music" class="subpage c4" lang="tr">
   <a href="#top" class="subpage-back">← Anasayfa</a>
   <div>
     <h1>Müzik</h1>
-    <p>Çok yakında.</p>
+    <p id="cat-music-text">Çok yakında.</p>
   </div>
 </section>
 <section id="cat-fashion" class="subpage c5" lang="tr">
   <a href="#top" class="subpage-back">← Anasayfa</a>
   <div>
     <h1>Moda</h1>
-    <p>Çok yakında.</p>
+    <p id="cat-fashion-text">Çok yakında.</p>
   </div>
 </section>
 
@@ -526,6 +526,15 @@
           if(data.about){
             var ab = document.getElementById('about-text');
             if(ab) ab.textContent = data.about;
+          }
+          if(data.collections){
+            var collIds = ['cat-literature','cat-art','cat-cinema','cat-music','cat-fashion'];
+            collIds.forEach(function(id){
+              if(data.collections[id]){
+                var el = document.getElementById(id + '-text');
+                if(el) el.textContent = data.collections[id];
+              }
+            });
           }
           if(data.contact){
             var ig = document.getElementById('ig-link');

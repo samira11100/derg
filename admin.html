@@ -64,7 +64,7 @@
 
 <header>
   <h1>derg! içerik yönetimi</h1>
-  <p>Etkinlikler, hakkımızda yazısı ve iletişim bilgilerini buradan güncelleyip doğrudan siteye kaydedebilirsin — kod yazmana gerek yok.</p>
+  <p>Koleksiyonlar, etkinlikler, hakkımızda yazısı ve iletişim bilgilerini buradan güncelleyip doğrudan siteye kaydedebilirsin — kod yazmana gerek yok.</p>
 </header>
 
 <main>
@@ -108,6 +108,21 @@
   </div>
 
   <form id="content-form" style="display:none;">
+    <div class="card">
+      <h2>Koleksiyonlar</h2>
+      <p class="hint">Ana sayfadaki her kategori kutusuna tıklandığında açılan sayfanın yazısı. Her biri ayrı ayrı güncellenebilir.</p>
+      <label for="f-coll-literature">Edebiyat</label>
+      <textarea id="f-coll-literature"></textarea>
+      <label for="f-coll-art">Sanat</label>
+      <textarea id="f-coll-art"></textarea>
+      <label for="f-coll-cinema">Film ve Fotoğraf</label>
+      <textarea id="f-coll-cinema"></textarea>
+      <label for="f-coll-music">Müzik</label>
+      <textarea id="f-coll-music"></textarea>
+      <label for="f-coll-fashion">Moda</label>
+      <textarea id="f-coll-fashion"></textarea>
+    </div>
+
     <div class="card">
       <h2>Yaklaşan Etkinlikler</h2>
       <p class="hint">Haritadaki pin konumları sabit olduğu için en fazla 2 yaklaşan + 2 geçmiş etkinlik düzenlenebilir. Daha fazla etkinlik ya da yeni bir pin konumu eklemek için Claude ile konuşman gerekir.</p>
@@ -239,6 +254,12 @@
     $('past2-title').value = (past[1] && past[1].title) || '';
     $('past2-loc').value = (past[1] && past[1].location) || '';
     $('f-about').value = data.about || '';
+    var coll = data.collections || {};
+    $('f-coll-literature').value = coll['cat-literature'] || '';
+    $('f-coll-art').value = coll['cat-art'] || '';
+    $('f-coll-cinema').value = coll['cat-cinema'] || '';
+    $('f-coll-music').value = coll['cat-music'] || '';
+    $('f-coll-fashion').value = coll['cat-fashion'] || '';
     var c = data.contact || {};
     $('f-ig-handle').value = c.instagram_handle || '';
     $('f-ig-url').value = c.instagram_url || '';
@@ -259,6 +280,13 @@
         ]
       },
       about: $('f-about').value.trim(),
+      collections: {
+        'cat-literature': $('f-coll-literature').value.trim(),
+        'cat-art': $('f-coll-art').value.trim(),
+        'cat-cinema': $('f-coll-cinema').value.trim(),
+        'cat-music': $('f-coll-music').value.trim(),
+        'cat-fashion': $('f-coll-fashion').value.trim()
+      },
       contact: {
         instagram_handle: $('f-ig-handle').value.trim(),
         instagram_url: $('f-ig-url').value.trim(),

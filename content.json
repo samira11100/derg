@@ -10,6 +10,13 @@
     ]
   },
   "about": "Çok yakında.",
+  "collections": {
+    "cat-literature": "Çok yakında.",
+    "cat-art": "Çok yakında.",
+    "cat-cinema": "Çok yakında.",
+    "cat-music": "Çok yakında.",
+    "cat-fashion": "Çok yakında."
+  },
   "contact": {
     "instagram_handle": "@dergdergi",
     "instagram_url": "https://www.instagram.com/dergdergi/",
