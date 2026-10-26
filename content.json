@@ -1,0 +1,19 @@
+{
+  "events": {
+    "upcoming": [
+      { "date": "XX.XX.XXXX", "title": "Etkinlik Başlığı Buraya Gelecek", "location": "Mekân adı, şehir" },
+      { "date": "XX.XX.XXXX", "title": "İkinci Etkinlik Başlığı", "location": "Mekân adı" }
+    ],
+    "past": [
+      { "date": "XX.XX.XXXX", "title": "Geçmiş Etkinlik Başlığı", "location": "Mekân adı, şehir" },
+      { "date": "XX.XX.XXXX", "title": "Dördüncü Etkinlik Başlığı", "location": "Mekân adı" }
+    ]
+  },
+  "about": "Çok yakında.",
+  "contact": {
+    "instagram_handle": "@dergdergi",
+    "instagram_url": "https://www.instagram.com/dergdergi/",
+    "linkedin_url": "https://www.linkedin.com/company/dergdergi/",
+    "email": "iletisim@dergdergi.com"
+  }
+}

@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>derg! — içerik yönetimi</title>
+<style>
+  :root{
+    --paper:#ffffff; --ink:#1d1b1c; --ink-dim:#6f6a65; --line:rgba(29,27,28,0.16);
+    --flare:#e72176; --acid:#c1fe1a; --acid-ink:#597a01; --indigo:#0240ad; --red:#f80f0c;
+    --field-bg:#faf9f8;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding:0 20px 80px;
+  }
+  header{
+    max-width:760px; margin:0 auto; padding:32px 0 20px; border-bottom:4px solid var(--ink);
+  }
+  header h1{ font-size:1.9rem; margin:0 0 4px; font-weight:800; }
+  header p{ margin:0; color:var(--ink-dim); font-size:0.95rem; }
+  main{ max-width:760px; margin:0 auto; }
+  .card{
+    border:2px solid var(--ink); border-radius:10px; padding:22px 24px; margin-top:24px; background:var(--paper);
+  }
+  .card h2{ font-size:1.1rem; margin:0 0 4px; text-transform:uppercase; letter-spacing:0.04em; }
+  .card .hint{ color:var(--ink-dim); font-size:0.86rem; margin:0 0 16px; line-height:1.5; }
+  label{ display:block; font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin:14px 0 5px; color:var(--ink-dim); }
+  label:first-of-type{ margin-top:0; }
+  input[type=text], input[type=password], input[type=email], textarea{
+    width:100%; padding:10px 12px; border:2px solid var(--line); border-radius:6px;
+    font-size:0.95rem; font-family:inherit; background:var(--field-bg); color:var(--ink);
+  }
+  input:focus, textarea:focus{ outline:none; border-color:var(--flare); }
+  textarea{ min-height:70px; resize:vertical; }
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .row3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; }
+  @media (max-width:560px){ .row2,.row3{ grid-template-columns:1fr; } }
+  .evt-slot{ border:1px solid var(--line); border-radius:8px; padding:14px; margin-top:14px; }
+  .evt-slot .evt-slot-label{ font-size:0.75rem; color:var(--flare); font-weight:800; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px; }
+  .checkrow{ display:flex; align-items:center; gap:8px; margin-top:16px; font-size:0.85rem; color:var(--ink-dim); }
+  .checkrow input{ width:auto; }
+  button{
+    font-family:inherit; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
+    font-size:0.85rem; padding:12px 22px; border-radius:7px; border:2px solid var(--ink);
+    background:var(--ink); color:var(--paper); cursor:pointer;
+  }
+  button.secondary{ background:var(--paper); color:var(--ink); }
+  button:disabled{ opacity:0.5; cursor:not-allowed; }
+  .actions{ display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; }
+  .status{ margin-top:16px; padding:12px 14px; border-radius:7px; font-size:0.88rem; display:none; }
+  .status.show{ display:block; }
+  .status.ok{ background:#eaffd1; border:1px solid var(--acid-ink); color:var(--acid-ink); }
+  .status.err{ background:#ffe1e0; border:1px solid var(--red); color:#a10b09; }
+  .status.info{ background:#eef3ff; border:1px solid var(--indigo); color:var(--indigo); }
+  details summary{ cursor:pointer; font-size:0.85rem; color:var(--ink-dim); margin-bottom:10px; }
+  footer{ max-width:760px; margin:40px auto 0; color:var(--ink-dim); font-size:0.78rem; text-align:center; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>derg! içerik yönetimi</h1>
+  <p>Etkinlikler, hakkımızda yazısı ve iletişim bilgilerini buradan güncelleyip doğrudan siteye kaydedebilirsin — kod yazmana gerek yok.</p>
+</header>
+
+<main>
+  <div class="card">
+    <h2>Bağlantı</h2>
+    <p class="hint">
+      Bu sayfa değişiklikleri doğrudan GitHub'daki <code>derg</code> deposuna kaydeder. Bunun için kendi GitHub hesabından,
+      sadece bu depoya erişebilen bir erişim anahtarı (token) oluşturman gerekiyor — anahtar yalnızca bu tarayıcıda saklanır,
+      başka hiçbir yere gönderilmez.
+    </p>
+    <details>
+      <summary>Token nasıl oluşturulur?</summary>
+      <p class="hint">
+        GitHub → sağ üstteki profil fotoğrafı → Settings → sol menüde en altta Developer settings → Fine-grained tokens →
+        Generate new token. "Repository access" kısmında sadece <code>derg</code> deposunu seç, "Permissions" kısmında
+        <code>Contents</code> için "Read and write" ver. Oluşan anahtarı kopyalayıp aşağıya yapıştır.
+      </p>
+    </details>
+    <label for="f-owner">GitHub kullanıcı adı</label>
+    <input type="text" id="f-owner" value="samira11100">
+    <div class="row2">
+      <div>
+        <label for="f-repo">Depo adı</label>
+        <input type="text" id="f-repo" value="derg">
+      </div>
+      <div>
+        <label for="f-branch">Dal (branch)</label>
+        <input type="text" id="f-branch" value="main">
+      </div>
+    </div>
+    <label for="f-token">Erişim anahtarı (token)</label>
+    <input type="password" id="f-token" placeholder="ghp_...">
+    <div class="checkrow">
+      <input type="checkbox" id="f-remember" checked>
+      <label for="f-remember" style="margin:0; text-transform:none; font-weight:400; letter-spacing:0; color:var(--ink-dim);">Anahtarı bu tarayıcıda hatırla</label>
+    </div>
+    <div class="actions">
+      <button type="button" id="btn-load">İçeriği Yükle</button>
+    </div>
+    <div class="status" id="status-load"></div>
+  </div>
+
+  <form id="content-form" style="display:none;">
+    <div class="card">
+      <h2>Yaklaşan Etkinlikler</h2>
+      <p class="hint">Haritadaki pin konumları sabit olduğu için en fazla 2 yaklaşan + 2 geçmiş etkinlik düzenlenebilir. Daha fazla etkinlik ya da yeni bir pin konumu eklemek için Claude ile konuşman gerekir.</p>
+      <div class="evt-slot">
+        <div class="evt-slot-label">1. Etkinlik</div>
+        <div class="row3">
+          <div><label>Tarih</label><input type="text" id="up1-date"></div>
+          <div style="grid-column:span 1;"><label>Başlık</label><input type="text" id="up1-title"></div>
+          <div><label>Mekân</label><input type="text" id="up1-loc"></div>
+        </div>
+      </div>
+      <div class="evt-slot">
+        <div class="evt-slot-label">2. Etkinlik</div>
+        <div class="row3">
+          <div><label>Tarih</label><input type="text" id="up2-date"></div>
+          <div><label>Başlık</label><input type="text" id="up2-title"></div>
+          <div><label>Mekân</label><input type="text" id="up2-loc"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Geçmiş Etkinlikler</h2>
+      <div class="evt-slot">
+        <div class="evt-slot-label">1. Etkinlik</div>
+        <div class="row3">
+          <div><label>Tarih</label><input type="text" id="past1-date"></div>
+          <div><label>Başlık</label><input type="text" id="past1-title"></div>
+          <div><label>Mekân</label><input type="text" id="past1-loc"></div>
+        </div>
+      </div>
+      <div class="evt-slot">
+        <div class="evt-slot-label">2. Etkinlik</div>
+        <div class="row3">
+          <div><label>Tarih</label><input type="text" id="past2-date"></div>
+          <div><label>Başlık</label><input type="text" id="past2-title"></div>
+          <div><label>Mekân</label><input type="text" id="past2-loc"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Hakkımızda</h2>
+      <label for="f-about">Metin</label>
+      <textarea id="f-about"></textarea>
+    </div>
+
+    <div class="card">
+      <h2>İletişim</h2>
+      <div class="row2">
+        <div>
+          <label for="f-ig-handle">Instagram kullanıcı adı (görünen)</label>
+          <input type="text" id="f-ig-handle" placeholder="@dergdergi">
+        </div>
+        <div>
+          <label for="f-ig-url">Instagram bağlantısı</label>
+          <input type="text" id="f-ig-url" placeholder="https://www.instagram.com/...">
+        </div>
+      </div>
+      <label for="f-li-url">LinkedIn bağlantısı</label>
+      <input type="text" id="f-li-url" placeholder="https://www.linkedin.com/company/...">
+      <label for="f-email">E-posta</label>
+      <input type="email" id="f-email" placeholder="iletisim@dergdergi.com">
+    </div>
+
+    <div class="actions">
+      <button type="submit" id="btn-save">Kaydet ve Yayınla</button>
+      <button type="button" class="secondary" id="btn-reload">Yeniden Yükle</button>
+    </div>
+    <div class="status" id="status-save"></div>
+  </form>
+</main>
+
+<footer>Bu sayfa derg! sitesinin bir parçası değil, sadece içerik düzenlemek için var. Kaydettiğinde değişiklik birkaç dakika içinde canlı sitede görünür.</footer>
+
+<script>
+(function(){
+  var LS_KEY = 'dergAdminToken';
+  var $ = function(id){ return document.getElementById(id); };
+  var currentSha = null;
+
+  function apiUrl(){
+    var owner = $('f-owner').value.trim();
+    var repo = $('f-repo').value.trim();
+    return 'https://api.github.com/repos/' + owner + '/' + repo + '/contents/content.json';
+  }
+
+  function headers(){
+    return {
+      'Authorization': 'Bearer ' + $('f-token').value.trim(),
+      'Accept': 'application/vnd.github+json'
+    };
+  }
+
+  function showStatus(id, kind, msg){
+    var el = $(id);
+    el.className = 'status show ' + kind;
+    el.textContent = msg;
+  }
+
+  function b64EncodeUtf8(str){
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+  function b64DecodeUtf8(str){
+    return decodeURIComponent(escape(atob(str)));
+  }
+
+  // restore remembered token
+  try{
+    var saved = localStorage.getItem(LS_KEY);
+    if(saved){ $('f-token').value = saved; }
+  }catch(e){}
+
+  function fillForm(data){
+    data = data || {};
+    var ev = data.events || {};
+    var up = ev.upcoming || [];
+    var past = ev.past || [];
+    $('up1-date').value = (up[0] && up[0].date) || '';
+    $('up1-title').value = (up[0] && up[0].title) || '';
+    $('up1-loc').value = (up[0] && up[0].location) || '';
+    $('up2-date').value = (up[1] && up[1].date) || '';
+    $('up2-title').value = (up[1] && up[1].title) || '';
+    $('up2-loc').value = (up[1] && up[1].location) || '';
+    $('past1-date').value = (past[0] && past[0].date) || '';
+    $('past1-title').value = (past[0] && past[0].title) || '';
+    $('past1-loc').value = (past[0] && past[0].location) || '';
+    $('past2-date').value = (past[1] && past[1].date) || '';
+    $('past2-title').value = (past[1] && past[1].title) || '';
+    $('past2-loc').value = (past[1] && past[1].location) || '';
+    $('f-about').value = data.about || '';
+    var c = data.contact || {};
+    $('f-ig-handle').value = c.instagram_handle || '';
+    $('f-ig-url').value = c.instagram_url || '';
+    $('f-li-url').value = c.linkedin_url || '';
+    $('f-email').value = c.email || '';
+  }
+
+  function readForm(){
+    return {
+      events: {
+        upcoming: [
+          { date: $('up1-date').value.trim(), title: $('up1-title').value.trim(), location: $('up1-loc').value.trim() },
+          { date: $('up2-date').value.trim(), title: $('up2-title').value.trim(), location: $('up2-loc').value.trim() }
+        ],
+        past: [
+          { date: $('past1-date').value.trim(), title: $('past1-title').value.trim(), location: $('past1-loc').value.trim() },
+          { date: $('past2-date').value.trim(), title: $('past2-title').value.trim(), location: $('past2-loc').value.trim() }
+        ]
+      },
+      about: $('f-about').value.trim(),
+      contact: {
+        instagram_handle: $('f-ig-handle').value.trim(),
+        instagram_url: $('f-ig-url').value.trim(),
+        linkedin_url: $('f-li-url').value.trim(),
+        email: $('f-email').value.trim()
+      }
+    };
+  }
+
+  function loadContent(){
+    var token = $('f-token').value.trim();
+    if(!token){ showStatus('status-load','err','Önce bir erişim anahtarı (token) gir.'); return; }
+    if($('f-remember').checked){
+      try{ localStorage.setItem(LS_KEY, token); }catch(e){}
+    } else {
+      try{ localStorage.removeItem(LS_KEY); }catch(e){}
+    }
+    showStatus('status-load','info','Yükleniyor...');
+    var branch = $('f-branch').value.trim() || 'main';
+    fetch(apiUrl() + '?ref=' + encodeURIComponent(branch), { headers: headers() })
+      .then(function(r){
+        if(r.status === 404){ return null; }
+        if(!r.ok){ throw new Error('GitHub API hatası: ' + r.status); }
+        return r.json();
+      })
+      .then(function(json){
+        if(json === null){
+          currentSha = null;
+          fillForm({});
+          showStatus('status-load','info','content.json henüz yok, ilk kaydında oluşturulacak.');
+        } else {
+          currentSha = json.sha;
+          var data = JSON.parse(b64DecodeUtf8(json.content.replace(/\n/g,'')));
+          fillForm(data);
+          showStatus('status-load','ok','İçerik yüklendi.');
+        }
+        $('content-form').style.display = 'block';
+      })
+      .catch(function(err){
+        showStatus('status-load','err','Yüklenemedi: ' + err.message + ' (kullanıcı adı, depo adı ve token\'ı kontrol et)');
+      });
+  }
+
+  function saveContent(e){
+    e.preventDefault();
+    var token = $('f-token').value.trim();
+    if(!token){ showStatus('status-save','err','Önce bir erişim anahtarı (token) gir.'); return; }
+    var branch = $('f-branch').value.trim() || 'main';
+    var data = readForm();
+    var body = {
+      message: 'İçerik güncellendi — ' + new Date().toISOString().slice(0,16).replace('T',' '),
+      content: b64EncodeUtf8(JSON.stringify(data, null, 2) + '\n'),
+      branch: branch
+    };
+    if(currentSha){ body.sha = currentSha; }
+    $('btn-save').disabled = true;
+    showStatus('status-save','info','Kaydediliyor...');
+    fetch(apiUrl(), {
+      method: 'PUT',
+      headers: Object.assign({'Content-Type':'application/json'}, headers()),
+      body: JSON.stringify(body)
+    })
+      .then(function(r){
+        if(!r.ok){ return r.json().then(function(j){ throw new Error(j.message || r.status); }); }
+        return r.json();
+      })
+      .then(function(json){
+        currentSha = json.content.sha;
+        showStatus('status-save','ok','Kaydedildi. Birkaç dakika içinde sitede görünecek.');
+      })
+      .catch(function(err){
+        showStatus('status-save','err','Kaydedilemedi: ' + err.message);
+      })
+      .finally(function(){
+        $('btn-save').disabled = false;
+      });
+  }
+
+  $('btn-load').addEventListener('click', loadContent);
+  $('btn-reload').addEventListener('click', loadContent);
+  $('content-form').addEventListener('submit', saveContent);
+})();
+</script>
+
+</body>
+</html>
